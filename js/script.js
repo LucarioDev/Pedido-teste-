@@ -2,16 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const pedidoForm = document.getElementById('pedido-form');
     const pedidosTbody = document.getElementById('pedidos-tbody');
     const filterStatus = document.getElementById('filter-status');
-
-    let pedidos = []; // Array para armazenar os pedidos
-
-    // Função para carregar pedidos do localStorage ou de um arquivo JSON inicial
+    
+    let pedidos = [];
     function carregarPedidos() {
         const pedidosSalvos = localStorage.getItem('pedidosAtelie');
         if (pedidosSalvos) {
             pedidos = JSON.parse(pedidosSalvos);
         } else {
-            // Se não houver nada salvo, carregamos alguns dados de exemplo (simulando o JSON)
             pedidos = [
                 { id: 1, nome: "Pedido Sra. Ana", status: "Em Produção", dataCriacao: "2023-10-26", dataEntrega: "2023-11-10" },
                 { id: 2, nome: "Conjunto Renda Azul", status: "Pronto", dataCriacao: "2023-10-20", dataEntrega: "2023-10-30" },
@@ -20,10 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         renderizarPedidos();
     }
-
-    // Função para renderizar a tabela de pedidos
     function renderizarPedidos() {
-        pedidosTbody.innerHTML = ''; // Limpa o corpo da tabela
+        pedidosTbody.innerHTML = '';
 
         const statusFiltrado = filterStatus.value;
         const pedidosFiltrados = statusFiltrado === 'todos'
@@ -34,14 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             row.setAttribute('data-id', pedido.id);
 
-            // Determina a classe CSS do status para colorir
             let statusClass = '';
             switch (pedido.status) {
                 case 'Aguardando Início': statusClass = 'aguardando'; break;
                 case 'Em Produção': statusClass = 'producao'; break;
                 case 'Pronto': statusClass = 'pronto'; break;
             }
-
             row.innerHTML = `
                 <td>${pedido.nome}</td>
                 <td><span class="status ${statusClass}">${pedido.status}</span></td>
@@ -61,14 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Função para formatar a data (YYYY-MM-DD para DD/MM/YYYY)
     function formatarData(dataString) {
         if (!dataString) return '';
         const partes = dataString.split('-');
         return `${partes[2]}/${partes[1]}/${partes[0]}`;
     }
-
-    // Adicionar novo pedido
+    
     pedidoForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -77,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataEntregaInput = document.getElementById('data-entrega');
 
         const novoPedido = {
-            id: Date.now(), // Gera um ID único baseado no timestamp
+            id: Date.now(),
             nome: nomePedidoInput.value,
-            status: 'Aguardando Início', // Status inicial
-            dataCriacao: dataCriacaoInput.value || new Date().toISOString().split('T')[0], // Pega data atual se não for preenchida
+            status: 'Aguardando Início',
+            dataCriacao: dataCriacaoInput.value || new Date().toISOString().split('T')[0],
             dataEntrega: dataEntregaInput.value
         };
 
@@ -88,21 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
         salvarPedidos();
         renderizarPedidos();
 
-        // Limpa o formulário
         pedidoForm.reset();
     });
 
-    // Event delegation para botões de editar e excluir, e atualização de status
     pedidosTbody.addEventListener('click', (e) => {
         const target = e.target;
         const id = parseInt(target.getAttribute('data-id'));
 
-        // Botão de editar
         if (target.classList.contains('edit-btn')) {
             editarPedido(id);
         }
 
-        // Botão de excluir
         if (target.classList.contains('delete-btn')) {
             if (confirm('Tem certeza que deseja excluir este pedido?')) {
                 excluirPedido(id);
@@ -110,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Event delegation para a atualização de status via select
     pedidosTbody.addEventListener('change', (e) => {
         const target = e.target;
         if (target.classList.contains('status-update')) {
@@ -120,51 +106,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Editar Pedido (abre um modal ou preenche o formulário para edição)
     function editarPedido(id) {
         const pedidoParaEditar = pedidos.find(p => p.id === id);
         if (!pedidoParaEditar) return;
 
-        // Preenche o formulário com os dados do pedido
         document.getElementById('nome-pedido').value = pedidoParaEditar.nome;
         document.getElementById('data-criacao').value = pedidoParaEditar.dataCriacao;
         document.getElementById('data-entrega').value = pedidoParaEditar.dataEntrega;
 
-        // Opcional: Mudar o botão de "Adicionar" para "Salvar Alterações" e gerenciar a lógica
-        // Para simplificar, vamos apenas atualizar o pedido existente após o usuário salvar novamente
-        // Uma implementação mais robusta usaria um modal.
         alert("Os dados do pedido foram carregados no formulário. Por favor, clique em 'Adicionar Pedido' para salvar as alterações (isso irá substituir o pedido existente). Para uma experiência melhor, considere implementar um modal de edição.");
 
-        // Remove o pedido antigo para ser substituído pelo novo
         pedidos = pedidos.filter(p => p.id !== id);
-        salvarPedidos(); // Salva sem o pedido antigo
+        salvarPedidos();
     }
 
-    // Excluir Pedido
     function excluirPedido(id) {
         pedidos = pedidos.filter(p => p.id !== id);
         salvarPedidos();
         renderizarPedidos();
     }
 
-    // Atualizar Status do Pedido
     function atualizarStatusPedido(id, novoStatus) {
         const pedidoIndex = pedidos.findIndex(p => p.id === id);
         if (pedidoIndex !== -1) {
             pedidos[pedidoIndex].status = novoStatus;
             salvarPedidos();
-            renderizarPedidos(); // Re-renderiza para aplicar a classe CSS correta
+            renderizarPedidos();
         }
     }
 
-    // Salvar pedidos no localStorage
     function salvarPedidos() {
         localStorage.setItem('pedidosAtelie', JSON.stringify(pedidos));
     }
 
-    // Filtro de status
     filterStatus.addEventListener('change', renderizarPedidos);
 
-    // Carrega os pedidos quando a página é carregada
     carregarPedidos();
 });
