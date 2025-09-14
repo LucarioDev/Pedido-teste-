@@ -1,9 +1,8 @@
-/* Paleta de Cores: Elegância Clássica */
 :root {
-    --cor-primaria: #F5EFE6; /* Nude Claro */
-    --cor-secundaria: #D4A8A8; /* Rosa Queimado */
-    --cor-destaque: #C0A080; /* Dourado Suave */
-    --cor-texto: #333333; /* Cinza Escuro */
+    --cor-primaria: #F5EFE6;
+    --cor-secundaria: #D4A8A8; 
+    --cor-destaque: #C0A080; 
+    --cor-texto: #333333; 
     --cor-borda: #E0D8CF;
 }
 
@@ -68,12 +67,9 @@ hr {
     background-color: var(--cor-borda);
     margin: 40px 0;
 }
-
-/* Formulário */
 #pedido-form .form-group {
     margin-bottom: 15px;
 }
-
 #pedido-form label {
     display: block;
     margin-bottom: 5px;
@@ -88,7 +84,7 @@ hr {
     padding: 10px;
     border: 1px solid var(--cor-borda);
     border-radius: 4px;
-    box-sizing: border-box; /* Para garantir que o padding não aumente o tamanho total */
+    box-sizing: border-box;
 }
 
 #pedido-form button {
@@ -103,10 +99,9 @@ hr {
 }
 
 #pedido-form button:hover {
-    background-color: #a68d6d; /* Um tom ligeiramente mais escuro para hover */
+    background-color: #a68d6d;
 }
 
-/* Tabela de Pedidos */
 .filters {
     margin-bottom: 20px;
     display: flex;
@@ -145,7 +140,7 @@ hr {
 }
 
 #pedidos-table tbody tr:nth-child(even) {
-    background-color: #fcfaf8; /* Um tom ainda mais claro para linhas pares */
+    background-color: #fcfaf8;
 }
 
 #pedidos-table td {
@@ -160,17 +155,17 @@ hr {
 }
 
 .status.aguardando {
-    background-color: #ffeeba; /* Amarelo pálido */
+    background-color: #ffeeba;
     color: #856404;
 }
 
 .status.producao {
-    background-color: #cce5ff; /* Azul pálido */
+    background-color: #cce5ff; 
     color: #004085;
 }
 
 .status.pronto {
-    background-color: #d4edda; /* Verde pálido */
+    background-color: #d4edda;
     color: #155724;
 }
 
@@ -191,7 +186,7 @@ hr {
 }
 
 .actions .delete-btn {
-    color: #dc3545; /* Vermelho padrão para delete */
+    color: #dc3545;
 }
 .actions .delete-btn:hover {
     color: #c82333;
@@ -233,4 +228,5 @@ footer {
     background-color: var(--cor-secundaria);
     color: white;
     margin-top: 40px;
+
 }
