@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nomeCliente": "Sra. Ana",
+    "nomePedido": "Conjunto Renda Azul",
+    "status": "Em Produção",
+    "dataCriacao": "2025-09-07",
+    "dataEntregaPrevista": "2025-09-15"
+  },
+  {
+    "id": 2,
+    "nomeCliente": "Sr. João",
+    "nomePedido": "Sutiã Conforto Preto",
+    "status": "Aguardando Início",
+    "dataCriacao": "2025-09-07",
+    "dataEntregaPrevista": "2025-09-20"
+  },
+  {
+    "id": 3,
+    "nomeCliente": "Maria Eduarda",
+    "nomePedido": "Calcinha Fio Dental Vermelha",
+    "status": "Pronto",
+    "dataCriacao": "2025-09-06",
+    "dataEntregaPrevista": "2025-09-10"
+  }
+]
